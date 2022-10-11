@@ -1,12 +1,22 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
+from polls.models import Question
+
 
 def index(request):
     print("Las vistas siempre reciben un parametro tipo <request>", type(request))
     print("El request tiene un parametro <headers>: ", request.headers)
-    # print("El request tiene un parametro <data>: ", request.data)
-    return HttpResponse("Estas en la pagina principal de Premios Platzi!")
+
+    latest_question_list = Question.objects.all()
+
+    return render(
+        request,
+        "polls/index.html",
+        {
+            "latest_question_list": latest_question_list
+        }
+    )
 
 
 def detail(request, question_id):
