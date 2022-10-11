@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 
 from polls.models import Question
@@ -20,8 +20,14 @@ def index(request):
 
 
 def detail(request, question_id):
-    # print("El request tiene un parametro <data>: ", request.data)
-    return HttpResponse(f"Estas viendo la pregunta nro.: {question_id}")
+    question = get_object_or_404(Question, pk=question_id)
+    return render(
+        request,
+        "polls/detail.html",
+        {
+            "question": question
+        }
+    )
 
 
 def results(request, question_id):
