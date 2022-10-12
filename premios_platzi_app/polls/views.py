@@ -7,6 +7,7 @@ from polls.models import Question
 def index(request):
     print("Las vistas siempre reciben un parametro tipo <request>", type(request))
     print("El request tiene un parametro <headers>: ", request.headers)
+    print("El request tiene un parametro <POST>: ", request.POST)
 
     latest_question_list = Question.objects.all()
 
